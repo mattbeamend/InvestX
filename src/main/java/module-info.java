@@ -8,6 +8,8 @@ module com.msmith.investx {
 
     opens com.msmith.investx to javafx.fxml;
     exports com.msmith.investx;
+    exports com.msmith.investx.controller.setup;
+    opens com.msmith.investx.controller.setup to javafx.fxml;
     exports com.msmith.investx.controller;
     opens com.msmith.investx.controller to javafx.fxml;
 }

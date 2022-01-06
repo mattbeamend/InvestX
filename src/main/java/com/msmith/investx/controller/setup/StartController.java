@@ -1,10 +1,9 @@
-package com.msmith.investx.controller;
+package com.msmith.investx.controller.setup;
 
 import com.msmith.investx.Start;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 
 public class StartController {
 
@@ -15,4 +14,5 @@ public class StartController {
         Start.getContainer().setScene(scene);
         Start.getContainer().show();
     }
+
 }

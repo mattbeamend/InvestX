@@ -1,11 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.msmith.investx.controller.StartController">
+<AnchorPane prefHeight="500.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.msmith.investx.controller.setup.SetupController">
    <children>
-      <Label layoutX="110.0" layoutY="164.0" text="Account Setup" textAlignment="CENTER" />
+      <Label layoutX="47.0" layoutY="38.0" text="ACCOUNT SETUP" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font></Label>
+      <VBox layoutX="34.0" layoutY="94.0" prefHeight="263.0" prefWidth="232.0">
+         <children>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="232.0" spacing="10.0">
+               <children>
+                  <Label text="Name">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="username" promptText="Enter Name" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="232.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="16.0" prefWidth="112.0" text="Target £">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="target" prefHeight="26.0" prefWidth="204.0" promptText="0.00" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="232.0" spacing="10.0">
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <Label text="Date">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="targetDate" prefHeight="26.0" prefWidth="183.0" promptText="00/00/0000" />
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="232.0" spacing="10.0">
+               <children>
+                  <Label text="Interest Rate %">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="interestRate" prefHeight="26.0" prefWidth="122.0" promptText="0.0%" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="38.0" prefWidth="232.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="26.0" prefWidth="210.0" text="Deposit £" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="deposit" prefHeight="26.0" prefWidth="295.0" promptText="0.00" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <Separator prefWidth="200.0" />
+         </children>
+      </VBox>
+      <Button layoutX="36.0" layoutY="366.0" mnemonicParsing="false" onAction="#onCreateAccountClicked" prefHeight="46.0" prefWidth="229.0" text="CREATE" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
