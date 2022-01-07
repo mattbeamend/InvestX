@@ -1,8 +1,9 @@
 package com.msmith.investx.model;
 
+import java.io.*;
 import java.time.LocalDate;
 
-public class User {
+public class User implements Serializable {
 
     private static User instance;
     private String username;

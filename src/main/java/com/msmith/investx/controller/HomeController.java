@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,6 +22,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         username.setText("Username: " + User.getInstance().getUsername());
         target.setText("Target: " + User.getInstance().getTarget());
         targetDate.setText("Target Date: " + User.getInstance().getTargetDate());
