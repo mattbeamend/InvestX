@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.msmith.investx.controller.HomeController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="28.0" layoutY="26.0" prefHeight="399.0" prefWidth="247.0">
+      <VBox alignment="TOP_CENTER" layoutX="27.0" layoutY="121.0" prefHeight="129.0" prefWidth="247.0">
          <children>
             <Label fx:id="username" text="Username" />
             <Label fx:id="target" text="Target" />

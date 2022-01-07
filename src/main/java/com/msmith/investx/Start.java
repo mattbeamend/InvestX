@@ -14,7 +14,7 @@ public class Start extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         container = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("start-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/start-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 500);
         stage.setTitle("Track Invest");
         stage.setScene(scene);

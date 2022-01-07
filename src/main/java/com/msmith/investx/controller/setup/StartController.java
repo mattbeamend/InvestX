@@ -9,7 +9,7 @@ public class StartController {
 
     @FXML
     public void onStartButtonClick() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("setup-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/setup-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 500);
         Start.getContainer().setScene(scene);
         Start.getContainer().show();

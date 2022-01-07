@@ -19,7 +19,7 @@ public class SetupController {
     @FXML
     public void onCreateAccountClicked() throws Exception {
         addUserDetails();
-        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("home-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/home-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 500);
         Start.getContainer().setScene(scene);
         Start.getContainer().show();
