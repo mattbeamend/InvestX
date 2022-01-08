@@ -15,14 +15,15 @@ public class StartController {
 
     @FXML
     public void onStartButtonClick() throws Exception {
+        FileInputStream file = new FileInputStream(
+                "src/main/resources/com/msmith/investx/files/user-information.ser");
 
+        // If there's an existing account, skip the setup view and load users home page.
         FXMLLoader fxmlLoader;
-        File file = new File("src/main/resources/com/msmith/investx/files/user-information.ser");
-
-        if(file.length() == 0)
+        if(file.available() == 0)
             fxmlLoader = new FXMLLoader(Start.class.getResource("views/setup-view.fxml"));
         else {
-            fetchUserFileData();
+            fetchUserFileData(file);
             fxmlLoader = new FXMLLoader(Start.class.getResource("views/home-view.fxml"));
         }
         Scene scene = new Scene(fxmlLoader.load(), 300, 500);
@@ -30,10 +31,8 @@ public class StartController {
         Start.getContainer().show();
     }
 
-    private void fetchUserFileData() {
-
+    private void fetchUserFileData(FileInputStream file) {
         try {
-            FileInputStream file = new FileInputStream("src/main/resources/com/msmith/investx/files/user-information.ser");
             ObjectInputStream stream = new ObjectInputStream(file);
             Object fileData = stream.readObject();
 
@@ -46,7 +45,6 @@ public class StartController {
 
             stream.close();
             file.close();
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

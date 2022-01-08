@@ -22,13 +22,12 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        username.setText("Username: " + User.getInstance().getUsername());
-        target.setText("Target: " + User.getInstance().getTarget());
-        targetDate.setText("Target Date: " + User.getInstance().getTargetDate());
-        interestRate.setText("Interest Rate: " + User.getInstance().getInterestRate());
-        deposits.setText("Deposits: " + User.getInstance().getDeposit());
-        interest.setText("Interest Earned: " + User.getInstance().getInterest());
-        total.setText("Current Total " + User.getInstance().getCurrent());
+        username.setText(User.getInstance().getUsername());
+        target.setText("£" + String.format("%.2f", User.getInstance().getTarget()) );
+        targetDate.setText("" + User.getInstance().getTargetDate());
+        interestRate.setText((User.getInstance().getInterestRate()) + "%");
+        deposits.setText("£" + String.format("%.2f", User.getInstance().getDeposit()));
+        interest.setText("£" + String.format("%.2f", User.getInstance().getInterest()));
+        total.setText("£" + String.format("%.2f", User.getInstance().getCurrent()));
     }
 }

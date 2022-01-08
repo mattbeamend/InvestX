@@ -28,7 +28,6 @@ public class SetupController {
     }
 
     private void addUserDetails() {
-
         User.getInstance().setUsername(username.getText());
         User.getInstance().setDeposit(Double.parseDouble(deposit.getText()));
         User.getInstance().setInterestRate(Double.parseDouble(interestRate.getText()));
@@ -41,12 +40,11 @@ public class SetupController {
 
     private void updateSerialObjectFile() {
         try {
-            FileOutputStream file = new FileOutputStream(new File("src/main/resources/com/msmith/investx/files/user-information.ser"));
+            FileOutputStream file = new FileOutputStream("src/main/resources/com/msmith/investx/files/user-information.ser");
             ObjectOutputStream stream = new ObjectOutputStream(file);
             stream.writeObject(User.getInstance());
             stream.close();
             file.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
