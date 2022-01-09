@@ -9,6 +9,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 import java.io.*;
+import java.time.LocalDate;
 
 public class SetupController {
 
@@ -34,6 +35,8 @@ public class SetupController {
         User.getInstance().setTarget(Double.parseDouble(target.getText()));
         User.getInstance().setTargetDate(targetDate.getValue());
         User.getInstance().setCurrent(Double.parseDouble(deposit.getText()));
+        User.getInstance().setInterest(0);
+        User.getInstance().setStartDate(LocalDate.now());
 
         updateSerialObjectFile();
     }

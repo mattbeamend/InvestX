@@ -18,7 +18,6 @@ public class StartController {
         FileInputStream file = new FileInputStream(
                 "src/main/resources/com/msmith/investx/files/user-information.ser");
 
-        // If there's an existing account, skip the setup view and load users home page.
         FXMLLoader fxmlLoader;
         if(file.available() == 0)
             fxmlLoader = new FXMLLoader(Start.class.getResource("views/setup-view.fxml"));
@@ -42,9 +41,11 @@ public class StartController {
             User.getInstance().setTarget(((User) fileData).getTarget());
             User.getInstance().setTargetDate(((User) fileData).getTargetDate());
             User.getInstance().setCurrent(((User) fileData).getCurrent());
+            User.getInstance().setStartDate(((User) fileData).getStartDate());
 
             stream.close();
             file.close();
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
