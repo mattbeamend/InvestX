@@ -142,12 +142,12 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
                                  <children>
-                                    <Label fx:id="deposits" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="27.0" prefWidth="143.0" text="Total Deposits">
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="27.0" prefWidth="143.0" text="Total Deposits">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="deposits" alignment="CENTER" prefHeight="20.0" prefWidth="157.0" text="£0.00">
+                                    <Label fx:id="deposits1" alignment="CENTER" prefHeight="20.0" prefWidth="157.0" text="£0.00">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -166,19 +166,19 @@
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="246.0" spacing="20.0">
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="116.0" text="ON-TRACK" />
-                                    <Button fx:id="onTrackButton" alignment="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #d1d6ff; -fx-background-radius: 5; -fx-border-color: #8c8c8c; -fx-border-radius: 5;" text="£0.00" />
+                                    <Button fx:id="onTrackButton" alignment="CENTER" mnemonicParsing="false" onAction="#onTrackClick" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #d1d6ff; -fx-background-radius: 5; -fx-border-color: #8c8c8c; -fx-border-radius: 5;" text="£0.00" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="246.0" spacing="20.0">
                                  <children>
-                                    <Label prefHeight="17.0" prefWidth="114.0" text="-100 DAYS" />
-                                    <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #70ffba; -fx-border-color: #8c8c8c; -fx-background-radius: 5; -fx-border-radius: 5;" text="£0.00" />
+                                    <Label prefHeight="17.0" prefWidth="114.0" text="-  365 DAYS" />
+                                    <Button fx:id="aheadTrack" mnemonicParsing="false" onAction="#onAheadTrackClick" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #70ffba; -fx-border-color: #8c8c8c; -fx-background-radius: 5; -fx-border-radius: 5;" text="£0.00" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="246.0" spacing="20.0">
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="117.0" text="+30 DAYS" />
-                                    <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #ff7373; -fx-border-color: #8c8c8c; -fx-background-radius: 5; -fx-border-radius: 5;" text="£0.00" />
+                                    <Button fx:id="behindTrack" mnemonicParsing="false" onAction="#onBehindTrackClick" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #ff7373; -fx-border-color: #8c8c8c; -fx-background-radius: 5; -fx-border-radius: 5;" text="£0.00" />
                                  </children>
                               </HBox>
                            </children>

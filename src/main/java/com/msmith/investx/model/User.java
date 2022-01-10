@@ -17,7 +17,7 @@ public class User implements Serializable {
     private double interest;
     private double current;
 
-    private double monthlyAdds;
+    private double[] monthlyAdditions;
 
     private User() {}
 
@@ -39,11 +39,17 @@ public class User implements Serializable {
         interest = current - deposit;
     }
 
-    private void calculateSuggestedInvestmentValues() {
-        double t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate);
+    public void calculateSuggestedInvestmentValues() {
+        double t;
         double r = (interestRate/100)/12;
-        this.monthlyAdds = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
-        //double total = (M * ((Math.pow(r + 1, t) - 1) / r)) + (P * (Math.pow((1 + r), t)));
+        monthlyAdditions = new double[3];
+
+        t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate);
+        this.monthlyAdditions[0] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
+        t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate.minusMonths(12));
+        this.monthlyAdditions[1] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
+        t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate.plusMonths(12));
+        this.monthlyAdditions[2] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
     }
 
     public double getTarget() {
@@ -110,7 +116,7 @@ public class User implements Serializable {
         this.startDate = startDate;
     }
 
-    public double getMonthlyAdds() {
-        return monthlyAdds;
+    public double[] getMonthlyAdditions() {
+        return monthlyAdditions;
     }
 }

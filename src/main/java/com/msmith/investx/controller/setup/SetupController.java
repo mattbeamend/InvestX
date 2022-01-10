@@ -20,7 +20,7 @@ public class SetupController {
     @FXML private TextField deposit;
 
     @FXML
-    public void onCreateAccountClicked() throws Exception {
+    public void onCreateAccountClick() throws Exception {
         addUserDetails();
         FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/home-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 500);
