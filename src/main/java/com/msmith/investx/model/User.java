@@ -6,20 +6,21 @@ import java.time.temporal.ChronoUnit;
 
 public class User implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private static User instance;
+
     private String username;
     private LocalDate targetDate;
     private LocalDate startDate;
+    private LocalDate currentDate;
 
     private double interestRate;
     private double target;
     private double deposit;
     private double interest;
     private double current;
-
     private double[] monthlyAdditions;
-
-    private User() {}
 
     public static User getInstance() {
         if(instance == null)
@@ -27,30 +28,26 @@ public class User implements Serializable {
         return instance;
     }
 
-    public void initialize() {
-        calculateInterestEarned();
-        calculateSuggestedInvestmentValues();
-    }
-
-    private void calculateInterestEarned() {
-        LocalDate currentDate = LocalDate.now();
+    public void calculateInterestEarned() {
+        //this.currentDate = LocalDate.of(2022, 9,11);
+        this.currentDate = LocalDate.now();
         double daysBetween = ChronoUnit.DAYS.between(startDate, currentDate);
         current = deposit *  Math.pow((1 + ((interestRate/100)/365)), daysBetween);
         interest = current - deposit;
     }
 
     public void calculateSuggestedInvestmentValues() {
-        double t;
-        double r = (interestRate/100)/12;
+        double t; double r = (interestRate/100)/12;
         monthlyAdditions = new double[3];
 
-        t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate);
+        t = ChronoUnit.MONTHS.between(currentDate, targetDate);
         this.monthlyAdditions[0] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
         t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate.minusMonths(12));
         this.monthlyAdditions[1] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
         t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate.plusMonths(12));
         this.monthlyAdditions[2] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
     }
+
 
     public double getTarget() {
         return target;
@@ -118,5 +115,9 @@ public class User implements Serializable {
 
     public double[] getMonthlyAdditions() {
         return monthlyAdditions;
+    }
+
+    public void setMonthlyAdditions(double[] monthlyAdditions) {
+        this.monthlyAdditions = monthlyAdditions;
     }
 }

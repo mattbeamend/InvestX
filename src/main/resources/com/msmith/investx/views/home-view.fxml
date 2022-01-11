@@ -171,13 +171,13 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="246.0" spacing="20.0">
                                  <children>
-                                    <Label prefHeight="17.0" prefWidth="114.0" text="-  365 DAYS" />
+                                    <Label prefHeight="17.0" prefWidth="114.0" text="- 1 YEAR" />
                                     <Button fx:id="aheadTrack" mnemonicParsing="false" onAction="#onAheadTrackClick" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #70ffba; -fx-border-color: #8c8c8c; -fx-background-radius: 5; -fx-border-radius: 5;" text="£0.00" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="246.0" spacing="20.0">
                                  <children>
-                                    <Label prefHeight="17.0" prefWidth="117.0" text="+30 DAYS" />
+                                    <Label prefHeight="17.0" prefWidth="117.0" text="+ 1 YEAR" />
                                     <Button fx:id="behindTrack" mnemonicParsing="false" onAction="#onBehindTrackClick" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #ff7373; -fx-border-color: #8c8c8c; -fx-background-radius: 5; -fx-border-radius: 5;" text="£0.00" />
                                  </children>
                               </HBox>

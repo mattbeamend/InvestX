@@ -1,6 +1,7 @@
 package com.msmith.investx.controller.setup;
 
 import com.msmith.investx.Start;
+import com.msmith.investx.controller.utilities.FileUtility;
 import com.msmith.investx.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,20 +39,11 @@ public class SetupController {
         User.getInstance().setInterest(0);
         User.getInstance().setStartDate(LocalDate.now());
 
-        updateSerialObjectFile();
+        FileUtility.updateUserFile();
     }
 
-    private void updateSerialObjectFile() {
-        try {
-            FileOutputStream file = new FileOutputStream("src/main/resources/com/msmith/investx/files/user-information.ser");
-            ObjectOutputStream stream = new ObjectOutputStream(file);
-            stream.writeObject(User.getInstance());
-            stream.close();
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+
 
 
 }

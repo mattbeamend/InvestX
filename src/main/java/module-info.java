@@ -12,4 +12,8 @@ module com.msmith.investx {
     opens com.msmith.investx.controller.setup to javafx.fxml;
     exports com.msmith.investx.controller;
     opens com.msmith.investx.controller to javafx.fxml;
+    exports com.msmith.investx.model;
+    opens com.msmith.investx.model to javafx.fxml;
+    exports com.msmith.investx.controller.utilities;
+    opens com.msmith.investx.controller.utilities to javafx.fxml;
 }
