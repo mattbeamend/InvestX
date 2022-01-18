@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.msmith.investx.controller.HomeController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="6.0" layoutY="4.0" prefHeight="494.0" prefWidth="288.0" spacing="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="6.0" layoutY="4.0" prefHeight="425.0" prefWidth="288.0" spacing="10.0">
          <children>
             <HBox prefHeight="40.0" prefWidth="268.0">
                <children>
@@ -194,5 +194,6 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
+      <Button layoutX="29.0" layoutY="438.0" mnemonicParsing="false" onAction="#onSettingsClick" prefHeight="25.0" prefWidth="82.0" text="Settings" />
    </children>
 </AnchorPane>

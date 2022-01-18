@@ -36,10 +36,9 @@ public class User implements Serializable {
         interest = current - deposit;
     }
 
-    public void calculateSuggestedInvestmentValues() {
+    public void calculateSuggestedInvestments() {
         double t; double r = (interestRate/100)/12;
         monthlyAdditions = new double[3];
-
         t = ChronoUnit.MONTHS.between(currentDate, targetDate);
         this.monthlyAdditions[0] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
         t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate.minusMonths(12));
@@ -47,7 +46,6 @@ public class User implements Serializable {
         t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate.plusMonths(12));
         this.monthlyAdditions[2] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
     }
-
 
     public double getTarget() {
         return target;
