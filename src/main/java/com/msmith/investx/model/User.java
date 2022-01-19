@@ -28,6 +28,7 @@ public class User implements Serializable {
         return instance;
     }
 
+    // TODO: Correlate interest earned with the S&P500 daily stock price
     public void calculateInterestEarned() {
         //this.currentDate = LocalDate.of(2022, 9,11);
         this.currentDate = LocalDate.now();
@@ -36,15 +37,17 @@ public class User implements Serializable {
         interest = current - deposit;
     }
 
-    public void calculateSuggestedInvestments() {
-        double t; double r = (interestRate/100)/12;
+    public void updateSuggestedInvestments() {
         monthlyAdditions = new double[3];
-        t = ChronoUnit.MONTHS.between(currentDate, targetDate);
-        this.monthlyAdditions[0] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
-        t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate.minusMonths(12));
-        this.monthlyAdditions[1] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
-        t = ChronoUnit.MONTHS.between(LocalDate.now(), targetDate.plusMonths(12));
-        this.monthlyAdditions[2] = ((target * r) - (r * deposit * Math.pow(1+r, t)))/(Math.pow(1+r, t)-1);
+        this.monthlyAdditions[0] = calculateMonthlyAddition(targetDate);
+        this.monthlyAdditions[1] = calculateMonthlyAddition(targetDate.minusMonths(12));
+        this.monthlyAdditions[2] = calculateMonthlyAddition(targetDate.plusMonths(12));
+    }
+
+    private double calculateMonthlyAddition(LocalDate endDate) {
+        double time = ChronoUnit.MONTHS.between(currentDate, endDate);
+        double r = (interestRate/100)/12;
+        return ((target * r) - (r * deposit * Math.pow(1+r, time)))/(Math.pow(1+r, time)-1);
     }
 
     public double getTarget() {

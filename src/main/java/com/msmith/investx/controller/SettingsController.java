@@ -35,17 +35,6 @@ public class SettingsController implements Initializable {
     }
 
     public void onSaveAccountClick() {
-        updateAccountDetails();
-    }
-
-    public void onBackButtonClick() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/home-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 300, 500);
-        Start.getContainer().setScene(scene);
-        Start.getContainer().show();
-    }
-
-    private void updateAccountDetails() {
         User.getInstance().setUsername(username.getText());
         User.getInstance().setDeposit(Double.parseDouble(deposit.getText()));
         User.getInstance().setInterestRate(Double.parseDouble(interestRate.getText()));
@@ -57,5 +46,11 @@ public class SettingsController implements Initializable {
         FileUtility.updateUserFile();
     }
 
+    public void onBackButtonClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 300, 500);
+        Start.getContainer().setScene(scene);
+        Start.getContainer().show();
+    }
 
 }

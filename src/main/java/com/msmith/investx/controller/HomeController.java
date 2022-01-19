@@ -2,6 +2,7 @@ package com.msmith.investx.controller;
 
 import com.msmith.investx.Start;
 import com.msmith.investx.controller.utilities.FileUtility;
+import com.msmith.investx.model.FundTracker;
 import com.msmith.investx.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+// TODO: Look into graphing/charting for users investment progress
 public class HomeController implements Initializable {
 
     @FXML private Label username;
@@ -32,7 +34,7 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User.getInstance().calculateInterestEarned();
-        User.getInstance().calculateSuggestedInvestments();
+        User.getInstance().updateSuggestedInvestments();
         updateLabels();
     }
 
@@ -63,7 +65,7 @@ public class HomeController implements Initializable {
         User.getInstance().setDeposit(User.getInstance().getDeposit() + User.getInstance().getMonthlyAdditions()[0]);
         User.getInstance().setCurrent(User.getInstance().getCurrent() + User.getInstance().getMonthlyAdditions()[0]);
 
-        User.getInstance().calculateSuggestedInvestments();
+        User.getInstance().updateSuggestedInvestments();
         updateLabels();
     }
 
@@ -72,7 +74,7 @@ public class HomeController implements Initializable {
         User.getInstance().setCurrent(User.getInstance().getCurrent() + User.getInstance().getMonthlyAdditions()[1]);
 
         User.getInstance().setTargetDate(User.getInstance().getTargetDate().minusMonths(12));
-        User.getInstance().calculateSuggestedInvestments();
+        User.getInstance().updateSuggestedInvestments();
         updateLabels();
     }
 
@@ -81,7 +83,7 @@ public class HomeController implements Initializable {
         User.getInstance().setCurrent(User.getInstance().getCurrent() + User.getInstance().getMonthlyAdditions()[2]);
 
         User.getInstance().setTargetDate(User.getInstance().getTargetDate().plusMonths(12));
-        User.getInstance().calculateSuggestedInvestments();
+        User.getInstance().updateSuggestedInvestments();
         updateLabels();
     }
 

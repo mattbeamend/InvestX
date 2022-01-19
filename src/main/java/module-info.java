@@ -5,6 +5,7 @@ module com.msmith.investx {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires YahooFinanceAPI;
 
     opens com.msmith.investx to javafx.fxml;
     exports com.msmith.investx;
