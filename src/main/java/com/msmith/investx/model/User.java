@@ -28,17 +28,19 @@ public class User implements Serializable {
         return instance;
     }
 
-    // TODO: Correlate interest earned with the S&P500 daily stock price
+    /* TODO: Correlate interest earned with the S&P500 daily stock price,
+         Need to create a log, which tracks every deposit made into S&P500 (price, quantity),
+        Use log of deposit history to determine their interest earned (profit/loss) */
     public void calculateInterestEarned() {
-        //this.currentDate = LocalDate.of(2022, 9,11);
+        //this.currentDate = LocalDate.of(2032, 1,11);
         this.currentDate = LocalDate.now();
         double daysBetween = ChronoUnit.DAYS.between(startDate, currentDate);
-        current = deposit *  Math.pow((1 + ((interestRate/100)/365)), daysBetween);
-        interest = current - deposit;
+        this.current = deposit *  Math.pow((1 + ((interestRate/100)/365)), daysBetween);
+        this.interest = current - deposit;
     }
 
     public void updateSuggestedInvestments() {
-        monthlyAdditions = new double[3];
+        this.monthlyAdditions = new double[3];
         this.monthlyAdditions[0] = calculateMonthlyAddition(targetDate);
         this.monthlyAdditions[1] = calculateMonthlyAddition(targetDate.minusMonths(12));
         this.monthlyAdditions[2] = calculateMonthlyAddition(targetDate.plusMonths(12));
@@ -47,7 +49,7 @@ public class User implements Serializable {
     private double calculateMonthlyAddition(LocalDate endDate) {
         double time = ChronoUnit.MONTHS.between(currentDate, endDate);
         double r = (interestRate/100)/12;
-        return ((target * r) - (r * deposit * Math.pow(1+r, time)))/(Math.pow(1+r, time)-1);
+        return ((target * r) - (r * current * Math.pow(1+r, time)))/(Math.pow(1+r, time)-1);
     }
 
     public double getTarget() {
@@ -120,5 +122,9 @@ public class User implements Serializable {
 
     public void setMonthlyAdditions(double[] monthlyAdditions) {
         this.monthlyAdditions = monthlyAdditions;
+    }
+
+    public double getPercentInterest() {
+        return (interest/deposit) * 100;
     }
 }

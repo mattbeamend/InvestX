@@ -2,7 +2,6 @@ package com.msmith.investx.controller;
 
 import com.msmith.investx.Start;
 import com.msmith.investx.controller.utilities.FileUtility;
-import com.msmith.investx.model.FundTracker;
 import com.msmith.investx.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +24,7 @@ public class HomeController implements Initializable {
     @FXML private Label deposits;
     @FXML private Label interest;
     @FXML private Label total;
+    @FXML private Label percentChange;
 
     @FXML private Label deposits1;
     @FXML private Button onTrackButton;
@@ -46,6 +46,7 @@ public class HomeController implements Initializable {
         deposits.setText("£" + String.format("%.2f", User.getInstance().getDeposit()));
         interest.setText("£" + String.format("%.2f", User.getInstance().getInterest()));
         total.setText("£" + String.format("%.2f", User.getInstance().getCurrent()));
+        percentChange.setText("(" + String.format("%.2f", User.getInstance().getPercentInterest()) + "%)");
         deposits1.setText("£" + String.format("%.2f", User.getInstance().getDeposit()));
         onTrackButton.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[0]));
         aheadTrack.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[1]));
@@ -61,6 +62,7 @@ public class HomeController implements Initializable {
         Start.getContainer().show();
     }
 
+    // TODO: Need to add a countdown to the users next monthly deposit
     public void onTrackClick() {
         User.getInstance().setDeposit(User.getInstance().getDeposit() + User.getInstance().getMonthlyAdditions()[0]);
         User.getInstance().setCurrent(User.getInstance().getCurrent() + User.getInstance().getMonthlyAdditions()[0]);
