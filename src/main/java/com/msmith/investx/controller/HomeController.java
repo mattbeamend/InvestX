@@ -7,15 +7,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-// TODO: Look into graphing/charting for users investment progress
+
 public class HomeController implements Initializable {
 
     @FXML private Label username;
@@ -26,19 +26,23 @@ public class HomeController implements Initializable {
     @FXML private Label interest;
     @FXML private Label total;
     @FXML private Label percentChange;
+    // TODO: Implement line chart to follow user historical investment total
+    //@FXML private LineChart<Number, Number> progressChart;
 
     @FXML private Label deposits1;
+    @FXML private Label lastDepositDate;
     @FXML private Button onTrackButton;
     @FXML private Button aheadTrack;
     @FXML private Button behindTrack;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        User.getInstance().calculateInterestEarned();
-        User.getInstance().updateSuggestedInvestments();
+        User.getInstance().calculateInterest();
+        User.getInstance().updateMonthlyAdditions();
         updateLabels();
     }
 
+    // TODO: Use a timer to update current total and interest every 2 seconds
     private void updateLabels() {
         username.setText(User.getInstance().getUsername());
         target.setText("£" + String.format("%.2f", User.getInstance().getTarget()));
@@ -52,6 +56,7 @@ public class HomeController implements Initializable {
         onTrackButton.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[0]));
         aheadTrack.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[1]));
         behindTrack.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[2]));
+        lastDepositDate.setText("" + User.getInstance().getLastDepositDate());
 
         FileUtility.updateUserFile();
     }
@@ -65,19 +70,19 @@ public class HomeController implements Initializable {
         Start.getContainer().show();
     }
 
-    // TODO: Need to add a countdown to the users next monthly deposit
+    // TODO: Enable user to add custom amount, and look preview how date changes before submitting
     public void onTrackClick() {
-        User.getInstance().updateInvestments(1, 0);
+        User.getInstance().updateInvestmentFigures(1, 0);
         updateLabels();
     }
 
     public void onAheadTrackClick() {
-        User.getInstance().updateInvestments(1, -12 );
+        User.getInstance().updateInvestmentFigures(1, -12 );
         updateLabels();
     }
 
     public void onBehindTrackClick() {
-        User.getInstance().updateInvestments(2, 12);
+        User.getInstance().updateInvestmentFigures(2, 12);
         updateLabels();
     }
 

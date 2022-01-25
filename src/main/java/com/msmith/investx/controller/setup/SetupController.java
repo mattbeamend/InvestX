@@ -40,6 +40,7 @@ public class SetupController {
         User.getInstance().setShares(Double.parseDouble(deposit.getText())/FundTracker.getInstance().getPrice());
         User.getInstance().setInterest(0);
         User.getInstance().setStartDate(LocalDate.now());
+        User.getInstance().setLastDepositDate(LocalDate.now());
 
         FileUtility.updateUserFile();
     }

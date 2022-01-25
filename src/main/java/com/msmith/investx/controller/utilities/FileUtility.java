@@ -23,6 +23,7 @@ public class FileUtility {
             User.getInstance().setCurrent(((User) fileData).getCurrent());
             User.getInstance().setShares(((User) fileData).getShares());
             User.getInstance().setMonthlyAdditions(((User) fileData).getMonthlyAdditions());
+            User.getInstance().setLastDepositDate(((User) fileData).getLastDepositDate());
 
             stream.close();
             file.close();

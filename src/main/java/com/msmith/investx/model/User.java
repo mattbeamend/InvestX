@@ -14,6 +14,7 @@ public class User implements Serializable {
     private LocalDate targetDate;
     private LocalDate startDate;
     private LocalDate currentDate;
+    private LocalDate lastDepositDate;
 
     private double interestRate;
     private double target;
@@ -29,24 +30,25 @@ public class User implements Serializable {
         return instance;
     }
 
-    /* TODO: Implement S&P500 correlation, everytime user deposits:
-        calculate number of shares, add into serial file, use number of shares against share price
-        to determine total value, as well as interest earned (total - deposits)
-     */
-    public void calculateInterestEarned() {
+    public void calculateInterest() {
         //this.currentDate = LocalDate.of(2032, 1,11);
         this.currentDate = LocalDate.now();
-//        double daysBetween = ChronoUnit.DAYS.between(startDate, currentDate);
-//        this.current = deposit *  Math.pow((1 + ((interestRate/100)/365)), daysBetween);
-//        this.interest = current - deposit;
         this.current = shares * FundTracker.getInstance().getPrice();
         this.interest = current - deposit;
         System.out.println(shares);
         System.out.println(FundTracker.getInstance().getPrice());
-
     }
 
-    public void updateSuggestedInvestments() {
+    public void updateInvestmentFigures(int btn, int changeDate) {
+        this.deposit = deposit + monthlyAdditions[btn];
+        this.shares += (monthlyAdditions[btn] / FundTracker.getInstance().getPrice());
+        this.targetDate = targetDate.plusMonths(changeDate);
+        this.lastDepositDate = LocalDate.now();
+        calculateInterest();
+        updateMonthlyAdditions();
+    }
+
+    public void updateMonthlyAdditions() {
         this.monthlyAdditions = new double[3];
         this.monthlyAdditions[0] = calculateMonthlyAddition(targetDate);
         this.monthlyAdditions[1] = calculateMonthlyAddition(targetDate.minusMonths(12));
@@ -57,14 +59,6 @@ public class User implements Serializable {
         double time = ChronoUnit.MONTHS.between(currentDate, endDate);
         double r = (interestRate/100)/12;
         return ((target * r) - (r * current * Math.pow(1+r, time)))/(Math.pow(1+r, time)-1);
-    }
-
-    public void updateInvestments(int btn, int changeDate) {
-        this.deposit = deposit + monthlyAdditions[btn];
-        this.shares += (monthlyAdditions[btn] / FundTracker.getInstance().getPrice());
-        this.targetDate = targetDate.plusMonths(changeDate);
-        calculateInterestEarned();
-        updateSuggestedInvestments();
     }
 
     public double getTarget() {
@@ -149,5 +143,13 @@ public class User implements Serializable {
 
     public double getShares() {
         return shares;
+    }
+
+    public LocalDate getLastDepositDate() {
+        return lastDepositDate;
+    }
+
+    public void setLastDepositDate(LocalDate lastDepositDate) {
+        this.lastDepositDate = lastDepositDate;
     }
 }
