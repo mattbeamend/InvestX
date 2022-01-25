@@ -2,6 +2,7 @@ package com.msmith.investx.controller.setup;
 
 import com.msmith.investx.Start;
 import com.msmith.investx.controller.utilities.FileUtility;
+import com.msmith.investx.model.FundTracker;
 import com.msmith.investx.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +37,7 @@ public class SetupController {
         User.getInstance().setTarget(Double.parseDouble(target.getText()));
         User.getInstance().setTargetDate(targetDate.getValue());
         User.getInstance().setCurrent(Double.parseDouble(deposit.getText()));
+        User.getInstance().setShares(Double.parseDouble(deposit.getText())/FundTracker.getInstance().getPrice());
         User.getInstance().setInterest(0);
         User.getInstance().setStartDate(LocalDate.now());
 

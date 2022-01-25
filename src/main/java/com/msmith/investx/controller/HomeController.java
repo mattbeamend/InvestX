@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -55,6 +56,8 @@ public class HomeController implements Initializable {
         FileUtility.updateUserFile();
     }
 
+
+
     public void onSettingsClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/setting-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 500);
@@ -64,28 +67,17 @@ public class HomeController implements Initializable {
 
     // TODO: Need to add a countdown to the users next monthly deposit
     public void onTrackClick() {
-        User.getInstance().setDeposit(User.getInstance().getDeposit() + User.getInstance().getMonthlyAdditions()[0]);
-        User.getInstance().setCurrent(User.getInstance().getCurrent() + User.getInstance().getMonthlyAdditions()[0]);
-
-        User.getInstance().updateSuggestedInvestments();
+        User.getInstance().updateInvestments(1, 0);
         updateLabels();
     }
 
     public void onAheadTrackClick() {
-        User.getInstance().setDeposit(User.getInstance().getDeposit() + User.getInstance().getMonthlyAdditions()[1]);
-        User.getInstance().setCurrent(User.getInstance().getCurrent() + User.getInstance().getMonthlyAdditions()[1]);
-
-        User.getInstance().setTargetDate(User.getInstance().getTargetDate().minusMonths(12));
-        User.getInstance().updateSuggestedInvestments();
+        User.getInstance().updateInvestments(1, -12 );
         updateLabels();
     }
 
     public void onBehindTrackClick() {
-        User.getInstance().setDeposit(User.getInstance().getDeposit() + User.getInstance().getMonthlyAdditions()[2]);
-        User.getInstance().setCurrent(User.getInstance().getCurrent() + User.getInstance().getMonthlyAdditions()[2]);
-
-        User.getInstance().setTargetDate(User.getInstance().getTargetDate().plusMonths(12));
-        User.getInstance().updateSuggestedInvestments();
+        User.getInstance().updateInvestments(2, 12);
         updateLabels();
     }
 

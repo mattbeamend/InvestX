@@ -16,12 +16,12 @@ public class FileUtility {
             User.getInstance().setUsername(((User) fileData).getUsername());
             User.getInstance().setTargetDate(((User) fileData).getTargetDate());
             User.getInstance().setStartDate(((User) fileData).getStartDate());
-
             User.getInstance().setInterestRate(((User) fileData).getInterestRate());
             User.getInstance().setTarget(((User) fileData).getTarget());
             User.getInstance().setDeposit(((User) fileData).getDeposit());
             User.getInstance().setInterest(((User) fileData).getInterest());
             User.getInstance().setCurrent(((User) fileData).getCurrent());
+            User.getInstance().setShares(((User) fileData).getShares());
             User.getInstance().setMonthlyAdditions(((User) fileData).getMonthlyAdditions());
 
             stream.close();

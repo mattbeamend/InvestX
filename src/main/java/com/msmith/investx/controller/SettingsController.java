@@ -2,6 +2,7 @@ package com.msmith.investx.controller;
 
 import com.msmith.investx.Start;
 import com.msmith.investx.controller.utilities.FileUtility;
+import com.msmith.investx.model.FundTracker;
 import com.msmith.investx.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,6 +42,7 @@ public class SettingsController implements Initializable {
         User.getInstance().setTarget(Double.parseDouble(target.getText()));
         User.getInstance().setTargetDate(targetDate.getValue());
         User.getInstance().setCurrent(Double.parseDouble(deposit.getText()));
+        User.getInstance().setShares(Double.parseDouble(deposit.getText())/ FundTracker.getInstance().getPrice());
         User.getInstance().setInterest(Double.parseDouble(interestEarned.getText()));
 
         FileUtility.updateUserFile();

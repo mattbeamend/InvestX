@@ -8,7 +8,6 @@ import java.io.IOException;
 public class FundTracker {
 
     private static FundTracker instance;
-    private Stock stock;
 
     public static FundTracker getInstance() {
         if(instance == null) {
@@ -17,15 +16,11 @@ public class FundTracker {
         return instance;
     }
 
-    private FundTracker() {
-        try {
-            this.stock = YahooFinance.get("VOO");
-        } catch (IOException ignored) {}
-    }
-
     public double getPrice() {
-        return stock.getQuote().getPrice().doubleValue();
+        try {
+            return YahooFinance.get("VOO").getQuote().getPrice().doubleValue();
+        } catch (IOException ignored) {}
+        return 0;
     }
-
 
 }

@@ -17,6 +17,7 @@ public class User implements Serializable {
 
     private double interestRate;
     private double target;
+    private double shares;
     private double deposit;
     private double interest;
     private double current;
@@ -28,15 +29,21 @@ public class User implements Serializable {
         return instance;
     }
 
-    /* TODO: Correlate interest earned with the S&P500 daily stock price,
-         Need to create a log, which tracks every deposit made into S&P500 (price, quantity),
-        Use log of deposit history to determine their interest earned (profit/loss) */
+    /* TODO: Implement S&P500 correlation, everytime user deposits:
+        calculate number of shares, add into serial file, use number of shares against share price
+        to determine total value, as well as interest earned (total - deposits)
+     */
     public void calculateInterestEarned() {
         //this.currentDate = LocalDate.of(2032, 1,11);
         this.currentDate = LocalDate.now();
-        double daysBetween = ChronoUnit.DAYS.between(startDate, currentDate);
-        this.current = deposit *  Math.pow((1 + ((interestRate/100)/365)), daysBetween);
+//        double daysBetween = ChronoUnit.DAYS.between(startDate, currentDate);
+//        this.current = deposit *  Math.pow((1 + ((interestRate/100)/365)), daysBetween);
+//        this.interest = current - deposit;
+        this.current = shares * FundTracker.getInstance().getPrice();
         this.interest = current - deposit;
+        System.out.println(shares);
+        System.out.println(FundTracker.getInstance().getPrice());
+
     }
 
     public void updateSuggestedInvestments() {
@@ -50,6 +57,14 @@ public class User implements Serializable {
         double time = ChronoUnit.MONTHS.between(currentDate, endDate);
         double r = (interestRate/100)/12;
         return ((target * r) - (r * current * Math.pow(1+r, time)))/(Math.pow(1+r, time)-1);
+    }
+
+    public void updateInvestments(int btn, int changeDate) {
+        this.deposit = deposit + monthlyAdditions[btn];
+        this.shares += (monthlyAdditions[btn] / FundTracker.getInstance().getPrice());
+        this.targetDate = targetDate.plusMonths(changeDate);
+        calculateInterestEarned();
+        updateSuggestedInvestments();
     }
 
     public double getTarget() {
@@ -126,5 +141,13 @@ public class User implements Serializable {
 
     public double getPercentInterest() {
         return (interest/deposit) * 100;
+    }
+
+    public void setShares(double shares) {
+        this.shares = shares;
+    }
+
+    public double getShares() {
+        return shares;
     }
 }

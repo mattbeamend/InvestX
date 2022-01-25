@@ -18,7 +18,7 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <VBox layoutX="35.0" layoutY="81.0" prefHeight="289.0" prefWidth="232.0">
+      <VBox layoutX="35.0" layoutY="81.0" prefHeight="308.0" prefWidth="232.0">
          <children>
             <Separator prefWidth="200.0" />
             <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="232.0" spacing="10.0">
@@ -88,14 +88,14 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox prefHeight="38.0" prefWidth="232.0" spacing="10.0">
+            <HBox prefHeight="58.0" prefWidth="232.0" spacing="10.0">
                <children>
-                  <Label prefHeight="26.0" prefWidth="210.0" text="Interest Earned" textOverrun="CLIP" wrapText="true">
+                  <Label prefHeight="26.0" prefWidth="266.0" text="Interest £" textOverrun="CLIP" wrapText="true">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="interestEarned" prefHeight="25.0" prefWidth="241.0" promptText="0.00" />
+                  <TextField fx:id="interestEarned" prefHeight="26.0" prefWidth="351.0" promptText="0.00" />
                </children>
                <padding>
                   <Insets bottom="10.0" top="10.0" />
@@ -104,7 +104,7 @@
             <Separator prefWidth="200.0" />
          </children>
       </VBox>
-      <Button layoutX="37.0" layoutY="385.0" mnemonicParsing="false" onAction="#onSaveAccountClick" prefHeight="46.0" prefWidth="229.0" text="SAVE" textAlignment="CENTER">
+      <Button layoutX="36.0" layoutY="405.0" mnemonicParsing="false" onAction="#onSaveAccountClick" prefHeight="46.0" prefWidth="229.0" text="SAVE" textAlignment="CENTER">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
