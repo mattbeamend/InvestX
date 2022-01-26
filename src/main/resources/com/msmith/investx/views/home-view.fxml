@@ -10,6 +10,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -208,6 +209,33 @@
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="117.0" text="+ 1 YEAR" />
                                     <Button fx:id="behindTrack" mnemonicParsing="false" onAction="#onBehindTrackClick" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #ff7373; -fx-border-color: #8c8c8c; -fx-background-radius: 5; -fx-border-radius: 5;" text="£0.00" />
+                                 </children>
+                              </HBox>
+                              <Separator prefWidth="200.0" />
+                              <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="246.0" spacing="20.0">
+                                 <children>
+                                    <Label text="Custom Investment" />
+                                    <VBox alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="115.0" spacing="3.0">
+                                       <children>
+                                          <Label text="Estimated Date:">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="customEstimatedDate" text="Label" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="246.0" spacing="5.0">
+                                 <children>
+                                    <Label text="£">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="customAmount" onKeyTyped="#onEnterCustomAmount" prefHeight="34.0" prefWidth="150.0" promptText="Enter Amount" />
+                                    <Button mnemonicParsing="false" onAction="#onCustomInvestClick" prefHeight="34.0" prefWidth="69.0" text="Invest" />
                                  </children>
                               </HBox>
                               <Separator prefWidth="200.0" />

@@ -3,6 +3,7 @@ package com.msmith.investx.controller;
 import com.msmith.investx.Start;
 import com.msmith.investx.controller.utilities.FileUtility;
 import com.msmith.investx.model.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,9 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -34,6 +38,8 @@ public class HomeController implements Initializable {
     @FXML private Button onTrackButton;
     @FXML private Button aheadTrack;
     @FXML private Button behindTrack;
+    @FXML private TextField customAmount;
+    @FXML private Label customEstimatedDate;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -57,6 +63,7 @@ public class HomeController implements Initializable {
         aheadTrack.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[1]));
         behindTrack.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[2]));
         lastDepositDate.setText("" + User.getInstance().getLastDepositDate());
+        customEstimatedDate.setText(String.valueOf(User.getInstance().getTargetDate()));
 
         FileUtility.updateUserFile();
     }
@@ -70,7 +77,6 @@ public class HomeController implements Initializable {
         Start.getContainer().show();
     }
 
-    // TODO: Enable user to add custom amount, and look preview how date changes before submitting
     public void onTrackClick() {
         User.getInstance().updateInvestmentFigures(1, 0);
         updateLabels();
@@ -86,4 +92,24 @@ public class HomeController implements Initializable {
         updateLabels();
     }
 
+    // TODO: Get custom invest button working, updating target date also
+    public void onCustomInvestClick() {
+
+    }
+
+    // TODO: Finish the estimated date for custom investments
+    public void onEnterCustomAmount() {
+        if(Objects.equals(customAmount.getText(), "")) {
+            customEstimatedDate.setText(String.valueOf(User.getInstance().getTargetDate()));
+            return;
+        }
+        double addition = Double.parseDouble(customAmount.getText());
+        double rates = (User.getInstance().getInterest()/100)/12;
+        double target = User.getInstance().getTarget();
+        double current = User.getInstance().getCurrent();
+        double p1 = ((target * rates) + addition)/(addition + (rates * current));
+        long months = (long) (Math.log(p1)/Math.log(1+rates));
+        System.out.println(months);
+        customEstimatedDate.setText(String.valueOf(User.getInstance().getTargetDate().plusMonths(months)));
+    }
 }
