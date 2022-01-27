@@ -103,7 +103,7 @@
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
                                       <yAxis>
-                                        <NumberAxis prefHeight="38.0" prefWidth="28.0" side="LEFT" />
+                                        <NumberAxis prefHeight="118.0" prefWidth="24.0" side="LEFT" />
                                       </yAxis>
                                     </AreaChart>
                                  </children>
@@ -137,7 +137,7 @@
                                  </children>
                               </HBox>
                               <Separator prefHeight="8.0" prefWidth="246.0" />
-                              <HBox prefHeight="5.0" prefWidth="246.0" spacing="5.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="5.0" prefWidth="246.0" spacing="5.0">
                                  <children>
                                     <Label text="Projected Interest Rate:">
                                        <font>
@@ -210,11 +210,14 @@
                                     <Label prefHeight="17.0" prefWidth="117.0" text="+ 1 YEAR" />
                                     <Button fx:id="behindTrack" mnemonicParsing="false" onAction="#onBehindTrackClick" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #ff7373; -fx-border-color: #8c8c8c; -fx-background-radius: 5; -fx-border-radius: 5;" text="£0.00" />
                                  </children>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
                               </HBox>
                               <Separator prefWidth="200.0" />
-                              <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="246.0" spacing="20.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="246.0" spacing="10.0">
                                  <children>
-                                    <Label text="Custom Investment" />
+                                    <Label text="Additional Investment" />
                                     <VBox alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="115.0" spacing="3.0">
                                        <children>
                                           <Label text="Estimated Date:">
@@ -241,7 +244,7 @@
                               <Separator prefWidth="200.0" />
                               <HBox prefHeight="23.0" prefWidth="246.0" spacing="10.0">
                                  <children>
-                                    <Label text="Last Investment Date:">
+                                    <Label text="Last Monthly Investment Date:">
                                        <font>
                                           <Font size="11.0" />
                                        </font>

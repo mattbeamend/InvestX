@@ -2,6 +2,7 @@ package com.msmith.investx.controller;
 
 import com.msmith.investx.Start;
 import com.msmith.investx.controller.utilities.FileUtility;
+import com.msmith.investx.model.FundTracker;
 import com.msmith.investx.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +41,8 @@ public class HomeController implements Initializable {
     @FXML private Button behindTrack;
     @FXML private TextField customAmount;
     @FXML private Label customEstimatedDate;
+
+    private LocalDate estimatedDate;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -92,24 +95,26 @@ public class HomeController implements Initializable {
         updateLabels();
     }
 
-    // TODO: Get custom invest button working, updating target date also
     public void onCustomInvestClick() {
-
+        User.getInstance().setDeposit(User.getInstance().getDeposit() + Double.parseDouble(customAmount.getText()));
+        User.getInstance().setShares(User.getInstance().getShares() + (Double.parseDouble(customAmount.getText())/ FundTracker.getInstance().getPrice()));
+        User.getInstance().setTargetDate(estimatedDate);
+        User.getInstance().calculateInterest();
+        User.getInstance().updateMonthlyAdditions();
+        updateLabels();
     }
 
-    // TODO: Finish the estimated date for custom investments
     public void onEnterCustomAmount() {
-        if(Objects.equals(customAmount.getText(), "")) {
+        if(Objects.equals(customAmount.getText(), "") || Objects.equals(customAmount.getText(), "0")) {
             customEstimatedDate.setText(String.valueOf(User.getInstance().getTargetDate()));
             return;
         }
-        double addition = Double.parseDouble(customAmount.getText());
-        double rates = (User.getInstance().getInterest()/100)/12;
+        double addition = User.getInstance().getMonthlyAdditions()[0];
+        double rates = (User.getInstance().getInterestRate()/100)/12;
         double target = User.getInstance().getTarget();
-        double current = User.getInstance().getCurrent();
-        double p1 = ((target * rates) + addition)/(addition + (rates * current));
-        long months = (long) (Math.log(p1)/Math.log(1+rates));
-        System.out.println(months);
-        customEstimatedDate.setText(String.valueOf(User.getInstance().getTargetDate().plusMonths(months)));
+        double current = User.getInstance().getCurrent() + Double.parseDouble(customAmount.getText());
+        long months = (long) (Math.log(((target * rates) + addition)/(addition + (rates * current)))/Math.log(1+rates));
+        this.estimatedDate = LocalDate.now().plusMonths(months);
+        customEstimatedDate.setText(String.valueOf(estimatedDate));
     }
 }
