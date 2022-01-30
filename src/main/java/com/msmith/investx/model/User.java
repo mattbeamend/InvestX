@@ -30,14 +30,11 @@ public class User implements Serializable {
         return instance;
     }
 
-    public void calculateInterest() {
+    public void updateInterest() {
         //this.currentDate = LocalDate.of(2032, 1,11);
         this.currentDate = LocalDate.now();
         this.current = shares * FundTracker.getInstance().getPrice();
         this.interest = current - deposit;
-        System.out.println(shares);
-        System.out.println(FundTracker.getInstance().getPrice());
-        System.out.println(shares * FundTracker.getInstance().getPrice());
     }
 
     public void updateInvestmentFigures(int btn, int monthChange) {
@@ -45,7 +42,7 @@ public class User implements Serializable {
         this.shares += (monthlyAdditions[btn] / FundTracker.getInstance().getPrice());
         this.targetDate = targetDate.plusMonths(monthChange);
         this.lastDepositDate = LocalDate.now();
-        calculateInterest();
+        updateInterest();
         updateMonthlyAdditions();
     }
 

@@ -4,21 +4,22 @@ import com.msmith.investx.Start;
 import com.msmith.investx.controller.utilities.FileUtility;
 import com.msmith.investx.model.FundTracker;
 import com.msmith.investx.model.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class HomeController implements Initializable {
@@ -46,27 +47,47 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        User.getInstance().calculateInterest();
+        User.getInstance().updateInterest();
         User.getInstance().updateMonthlyAdditions();
         updateLabels();
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                User.getInstance().updateInterest();
+                User.getInstance().updateMonthlyAdditions();
+                updateLabels();
+                System.out.print("UPDATE");
+                System.out.print(" | Quantity: " +String.format("%.2f", User.getInstance().getShares()));
+                System.out.print(" | Price: " + FundTracker.getInstance().getPrice());
+                System.out.println(" | Total: " + String.format("%.2f",User.getInstance().getShares() * FundTracker.getInstance().getPrice()));
+            }
+        }, 0, 5000);
     }
 
-    // TODO: Use a timer to update current total and interest every 2 seconds
     private void updateLabels() {
         username.setText(User.getInstance().getUsername());
         target.setText("£" + String.format("%.2f", User.getInstance().getTarget()));
         targetDate.setText("" + User.getInstance().getTargetDate());
         interestRate.setText((User.getInstance().getInterestRate()) + "%");
         deposits.setText("£" + String.format("%.2f", User.getInstance().getDeposit()));
-        interest.setText("£" + String.format("%.2f", User.getInstance().getInterest()));
         total.setText("£" + String.format("%.2f", User.getInstance().getCurrent()));
-        percentChange.setText("(" + String.format("%.2f", User.getInstance().getPercentInterest()) + "%)");
         deposits1.setText("£" + String.format("%.2f", User.getInstance().getDeposit()));
         onTrackButton.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[0]));
         aheadTrack.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[1]));
         behindTrack.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[2]));
         lastDepositDate.setText("" + User.getInstance().getLastDepositDate());
         customEstimatedDate.setText(String.valueOf(User.getInstance().getTargetDate()));
+        percentChange.setText("(" + String.format("%.2f", User.getInstance().getPercentInterest()) + "%)");
+        interest.setText("£" + String.format("%.2f", User.getInstance().getInterest()));
+
+        if(User.getInstance().getInterest() < 0) {
+            interest.setTextFill(Color.RED);
+            percentChange.setTextFill(Color.RED);
+        } else if(User.getInstance().getInterest() > 0) {
+            interest.setTextFill(Color.GREEN);
+            percentChange.setTextFill(Color.GREEN);
+        }
 
         FileUtility.updateUserFile();
     }
@@ -99,7 +120,7 @@ public class HomeController implements Initializable {
         User.getInstance().setDeposit(User.getInstance().getDeposit() + Double.parseDouble(customAmount.getText()));
         User.getInstance().setShares(User.getInstance().getShares() + (Double.parseDouble(customAmount.getText())/ FundTracker.getInstance().getPrice()));
         User.getInstance().setTargetDate(estimatedDate);
-        User.getInstance().calculateInterest();
+        User.getInstance().updateInterest();
         User.getInstance().updateMonthlyAdditions();
         updateLabels();
     }
