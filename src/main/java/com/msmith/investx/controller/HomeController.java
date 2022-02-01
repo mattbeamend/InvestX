@@ -4,6 +4,7 @@ import com.msmith.investx.Start;
 import com.msmith.investx.controller.utilities.FileUtility;
 import com.msmith.investx.model.FundTracker;
 import com.msmith.investx.model.User;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,6 +33,7 @@ public class HomeController implements Initializable {
     @FXML private Label interest;
     @FXML private Label total;
     @FXML private Label percentChange;
+
     // TODO: Implement line chart to follow user historical investment total
     //@FXML private LineChart<Number, Number> progressChart;
 
@@ -47,22 +49,26 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        User.getInstance().updateInterest();
-        User.getInstance().updateMonthlyAdditions();
-        updateLabels();
-
+        update();
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                User.getInstance().updateInterest();
-                User.getInstance().updateMonthlyAdditions();
-                updateLabels();
-                System.out.print("UPDATE");
-                System.out.print(" | Quantity: " +String.format("%.2f", User.getInstance().getShares()));
-                System.out.print(" | Price: " + FundTracker.getInstance().getPrice());
-                System.out.println(" | Total: " + String.format("%.2f",User.getInstance().getShares() * FundTracker.getInstance().getPrice()));
+                Platform.runLater(() -> {
+                    update();
+                    System.out.print("UPDATE");
+                    System.out.print(" | Quantity: " +String.format("%.2f", User.getInstance().getShares()));
+                    System.out.print(" | Price: " + FundTracker.getInstance().getPrice());
+                    System.out.println(" | Total: " +
+                            String.format("%.2f",User.getInstance().getShares() * FundTracker.getInstance().getPrice()));
+                });
             }
         }, 0, 5000);
+    }
+
+    private void update() {
+        User.getInstance().updateInterest();
+        User.getInstance().updateMonthlyAdditions();
+        updateLabels();
     }
 
     private void updateLabels() {
@@ -87,12 +93,12 @@ public class HomeController implements Initializable {
         } else if(User.getInstance().getInterest() > 0) {
             interest.setTextFill(Color.GREEN);
             percentChange.setTextFill(Color.GREEN);
+        } else {
+            interest.setTextFill(Color.BLACK);
+            percentChange.setTextFill(Color.BLACK);
         }
-
         FileUtility.updateUserFile();
     }
-
-
 
     public void onSettingsClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/setting-view.fxml"));
@@ -118,11 +124,10 @@ public class HomeController implements Initializable {
 
     public void onCustomInvestClick() {
         User.getInstance().setDeposit(User.getInstance().getDeposit() + Double.parseDouble(customAmount.getText()));
-        User.getInstance().setShares(User.getInstance().getShares() + (Double.parseDouble(customAmount.getText())/ FundTracker.getInstance().getPrice()));
+        User.getInstance().setShares(User.getInstance().getShares() +
+                (Double.parseDouble(customAmount.getText())/ FundTracker.getInstance().getPrice()));
         User.getInstance().setTargetDate(estimatedDate);
-        User.getInstance().updateInterest();
-        User.getInstance().updateMonthlyAdditions();
-        updateLabels();
+        update();
     }
 
     public void onEnterCustomAmount() {

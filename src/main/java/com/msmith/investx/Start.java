@@ -16,7 +16,7 @@ public class Start extends Application {
         container = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/start-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 500);
-        stage.setTitle("Track Invest");
+        stage.setTitle("Invest X");
         stage.setScene(scene);
         stage.show();
     }
