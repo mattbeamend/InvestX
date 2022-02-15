@@ -109,6 +109,6 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="17.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="Back" />
+      <Button layoutX="17.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="25.0" prefWidth="57.0" text="Back" />
    </children>
 </AnchorPane>

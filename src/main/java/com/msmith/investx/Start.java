@@ -14,7 +14,7 @@ public class Start extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         container = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/start-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 500);
         stage.setTitle("Invest X");
         stage.setScene(scene);

@@ -6,6 +6,8 @@ import java.io.*;
 
 public class FileUtility {
 
+    // TODO: Pull user account information from database, update user object values (used on Login)
+
     public static void updateUserObject() {
         try {
             FileInputStream file = new FileInputStream(
@@ -32,6 +34,7 @@ public class FileUtility {
         }
     }
 
+    // TODO: Update the database with new account information (used on Sign Up
     public static void updateUserFile() {
         try {
             FileOutputStream file = new FileOutputStream(

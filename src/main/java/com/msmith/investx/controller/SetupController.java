@@ -1,4 +1,4 @@
-package com.msmith.investx.controller.setup;
+package com.msmith.investx.controller;
 
 import com.msmith.investx.Start;
 import com.msmith.investx.controller.utilities.FileUtility;
@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.io.*;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 public class SetupController {
 
     @FXML private TextField username;
+    @FXML private PasswordField password;
     @FXML private TextField target;
     @FXML private DatePicker targetDate;
     @FXML private TextField interestRate;
@@ -31,6 +33,11 @@ public class SetupController {
     }
 
     private void addUserDetails() {
+
+        // TODO: Connect to MySQL Server, add user account to the database
+
+
+
         User.getInstance().setUsername(username.getText());
         User.getInstance().setDeposit(Double.parseDouble(deposit.getText()));
         User.getInstance().setInterestRate(Double.parseDouble(interestRate.getText()));
@@ -45,8 +52,10 @@ public class SetupController {
         FileUtility.updateUserFile();
     }
 
-
-
-
-
+    public void onBackButton() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("views/login-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 300, 500);
+        Start.getContainer().setScene(scene);
+        Start.getContainer().show();
+    }
 }

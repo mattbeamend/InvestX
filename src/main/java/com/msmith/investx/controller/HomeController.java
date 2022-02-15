@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -35,7 +37,7 @@ public class HomeController implements Initializable {
     @FXML private Label percentChange;
 
     // TODO: Implement line chart to follow user historical investment total
-    //@FXML private LineChart<Number, Number> progressChart;
+    @FXML private LineChart<String, Number> progressChart;
 
     @FXML private Label deposits1;
     @FXML private Label lastDepositDate;
@@ -49,6 +51,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         update();
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -68,6 +71,7 @@ public class HomeController implements Initializable {
     private void update() {
         User.getInstance().updateInterest();
         User.getInstance().updateMonthlyAdditions();
+        updateProgressChart();
         updateLabels();
     }
 
@@ -83,9 +87,10 @@ public class HomeController implements Initializable {
         aheadTrack.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[1]));
         behindTrack.setText("£" + String.format("%.2f", User.getInstance().getMonthlyAdditions()[2]));
         lastDepositDate.setText("" + User.getInstance().getLastDepositDate());
-        customEstimatedDate.setText(String.valueOf(User.getInstance().getTargetDate()));
         percentChange.setText("(" + String.format("%.2f", User.getInstance().getPercentInterest()) + "%)");
         interest.setText("£" + String.format("%.2f", User.getInstance().getInterest()));
+
+        onEnterCustomAmount();
 
         if(User.getInstance().getInterest() < 0) {
             interest.setTextFill(Color.RED);
@@ -98,6 +103,17 @@ public class HomeController implements Initializable {
             percentChange.setTextFill(Color.BLACK);
         }
         FileUtility.updateUserFile();
+    }
+
+    private void updateProgressChart() {
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Portfolio Value");
+        series.getData().add(new XYChart.Data<>("1", 20));
+        series.getData().add(new XYChart.Data<>("2", 30));
+        series.getData().add(new XYChart.Data<>("3", 40));
+        series.getData().add(new XYChart.Data<>("4", 50));
+        series.getData().add(new XYChart.Data<>("5", 60));
+        progressChart.getData().add(series);
     }
 
     public void onSettingsClick() throws IOException {
